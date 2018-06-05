@@ -336,6 +336,25 @@ void Graphics::DrawRect( int x0,int y0,int x1,int y1,Color c )
 	}
 }
 
+void Graphics::DrawFrameRect(const Vec2 & innerFrameTopLeft, int thickness, Color c)
+{
+	int leftX = int(innerFrameTopLeft.x) - thickness;
+	int rightX = ScreenWidth - int(innerFrameTopLeft.x);
+	int topY = int(innerFrameTopLeft.y) - thickness;
+	int middleY = int(innerFrameTopLeft.y);
+	int bottomY = ScreenHeight - int(innerFrameTopLeft.y);
+
+	int topBottom_width = ScreenWidth - 2 * (int(innerFrameTopLeft.x) - thickness);
+	int side_width = thickness;
+	int topBottom_height = thickness;
+	int side_height = ScreenHeight - 2 * int(innerFrameTopLeft.y);
+
+	DrawRectDim(leftX, topY, topBottom_width, topBottom_height, c);
+	DrawRectDim(leftX, bottomY, topBottom_width, topBottom_height, c);
+	DrawRectDim(leftX, middleY, side_width, side_height, c);
+	DrawRectDim(rightX, middleY, side_width, side_height, c);
+}
+
 void Graphics::DrawCircle( int x,int y,int radius,Color c )
 {
 	const int rad_sq = radius * radius;

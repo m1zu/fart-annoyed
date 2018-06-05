@@ -64,6 +64,7 @@ public:
 	void DrawRectDim(const Vec2& upperLeft, int width, int height, Color c) {
 		DrawRectDim( int(upperLeft.x), int(upperLeft.y), width, height, c);
 	};
+	void DrawFrameRect(const Vec2& innerFrameTopLeft, int thickness, Color c);
 	void DrawCircle( int x,int y,int radius,Color c );
 	~Graphics();
 private:
