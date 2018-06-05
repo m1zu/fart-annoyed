@@ -24,7 +24,8 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	wall(Vec2(149.0f, 19.0f), 10)
 {
 }
 
@@ -38,8 +39,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = frameTimer.Mark();
 }
 
 void Game::ComposeFrame()
 {
+	wall.Draw(gfx);
 }
