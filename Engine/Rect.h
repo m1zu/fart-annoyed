@@ -11,6 +11,7 @@ public:
 	Rect(const Vec2& middle, const float squareHalfWidth, Color c);
 
 	void Draw(Graphics& gfx, int padding = 0);
+	Vec2 GetCenter() const;
 
 public:
 	const float width;

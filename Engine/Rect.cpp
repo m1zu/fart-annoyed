@@ -30,3 +30,8 @@ void Rect::Draw(Graphics & gfx, int padding)
 	paddingVec += Vec2(float(padding), float(padding));
 	gfx.DrawRectDim(paddingVec, int(width - 2*padding), int(height - 2*padding), c);
 }
+
+Vec2 Rect::GetCenter() const
+{
+	return Vec2(upperLeft.x + width/2.0f, upperLeft.y + height/2.0f);
+}
