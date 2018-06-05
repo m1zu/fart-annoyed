@@ -11,9 +11,10 @@ public:
 	void Update(float dt);
 	void ReboundX(float repositionX);
 	void ReboundY(float repositionY);
+	Rect getRect() const;
 
 private:
-	static constexpr float halfWidth = 13.0f;
+	static constexpr float halfWidth = 7.0f;
 	Rect rect;
 	Vec2 velocity;
 };

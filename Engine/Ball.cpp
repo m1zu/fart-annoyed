@@ -27,5 +27,10 @@ void Ball::ReboundX(float repositionX)
 void Ball::ReboundY(float repositionY)
 {
 	velocity.y *= (-1);
-	rect.upperLeft.x = repositionY;
+	rect.upperLeft.y = repositionY;
+}
+
+Rect Ball::getRect() const
+{
+	return rect;
 }
