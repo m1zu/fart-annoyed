@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Rect.h"
+#include "Vec2.h"
+#include "Graphics.h"
 
 class Wall{
-	Wall(const Rect& in_innerRect, const int in_thickness);
+public:
+	Wall(const Vec2& in_innerTopLeft, const int in_thickness);
 
 	void Draw(Graphics& gfx) const;
 
 private:
-	Rect innerRect;
+	Vec2 innerTopLeft;
 	const int thickness;
 };
