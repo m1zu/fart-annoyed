@@ -13,5 +13,6 @@ public:
 
 private:
 	Vec2 innerTopLeft;
+	Rect innerRect;
 	const int thickness;
 };
