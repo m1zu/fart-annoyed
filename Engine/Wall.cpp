@@ -17,7 +17,7 @@ void Wall::Draw(Graphics & gfx) const
 		gfx.DrawFrameRect(innerTopLeft, thickness, Colors::Gray);
 }
 
-void Wall::DoCollsion(Ball & ball)
+void Wall::ClampBall(Ball & ball) const
 {
 	const Rect& ballRect = ball.getRect();
 	bool left, right, top, bottom;
@@ -33,6 +33,17 @@ void Wall::DoCollsion(Ball & ball)
 		else if (bottom)
 			ball.ReboundY(float(Graphics::ScreenHeight) - innerTopLeft.y - ballRect.height);
 	}
+}
 
-	
+void Wall::ClampPaddle(Paddle & paddle) const
+{
+	bool left, right, temp;
+
+	if (!innerRect.isCoating(paddle.GetRect(), temp, temp, left, right))
+	{
+		if (left)
+			paddle.ClampX(innerTopLeft.x);
+		if (right)
+			paddle.ClampX(float(Graphics::ScreenWidth) - innerTopLeft.x - Paddle::width);
+	}
 }
