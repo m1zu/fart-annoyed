@@ -3,6 +3,7 @@
 #include "Vec2.h"
 #include "Rect.h"
 #include "Graphics.h"
+#include "Ball.h"
 
 class Paddle {
 public:
@@ -12,6 +13,7 @@ public:
 	void Update(bool left, bool right, float dt);
 	Rect GetRect();
 	void ClampX(const float x);
+	void DoCollision(Ball& ball);
 
 public:
 	static constexpr float width = 70.0f;
