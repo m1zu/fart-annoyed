@@ -36,6 +36,57 @@ Vec2 Rect::GetCenter() const
 	return Vec2(upperLeft.x + width/2.0f, upperLeft.y + height/2.0f);
 }
 
+bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & collision_bottom, bool & collision_left, bool & collision_right) const
+{
+	collision_top = false;
+	collision_bottom = false;
+	collision_left = false;
+	collision_right = false;
+
+	const float in_left = in_rect.upperLeft.x;
+	const float in_right = in_rect.upperLeft.x + in_rect.width - 1.0f;
+	const float in_top = in_rect.upperLeft.y;
+	const float in_bottom = in_rect.upperLeft.y + in_rect.height - 1.0f;
+
+	const float left = upperLeft.x;
+	const float right = upperLeft.x + width - 1.0f;
+	const float top = upperLeft.y;
+	const float bottom = upperLeft.y + height - 1.0f;
+
+	if (bool collision = in_bottom > top
+		&& in_top < bottom
+		&& in_right > left
+		&& in_left < right)
+	{
+		Vec2 in_center = in_rect.GetCenter();
+		Vec2 center = GetCenter();
+
+		if (in_center.x > left && in_center.x < right) {
+			if (in_center.y < center.y) {
+				collision_top = true;
+				return collision;
+			}
+			else {
+				collision_bottom = true;
+				return collision;
+			}
+		}
+		if (in_center.y > top && in_center.y < bottom) {
+			if (in_center.x < center.x) {
+				collision_left = true;
+				return collision;
+			}
+			else {
+				collision_right = true;
+				return collision;
+			}
+
+		}
+	}
+
+	return false;
+}
+
 bool Rect::isCoating(const Rect & innerRect, bool & collision_top, bool & collision_bottom, bool & collision_left, bool & collision_right) const
 {
 	collision_top = false;
