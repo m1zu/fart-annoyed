@@ -48,6 +48,8 @@ void Game::UpdateModel()
 
 	ball.Update(dt);
 	wall.ClampBall(ball);
+
+	paddle.DoCollision(ball);
 }
 
 void Game::ComposeFrame()
