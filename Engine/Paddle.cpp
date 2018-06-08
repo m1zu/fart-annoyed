@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include <math.h>
 
 Paddle::Paddle(const Vec2 & upperLeft)
 	:
@@ -32,9 +33,17 @@ void Paddle::ClampX(const float x)
 void Paddle::DoCollision(Ball & ball)
 {
 	bool top, bottom, left, right;
-	rect.checkCollision(ball.getRect(), top, bottom, left, right);
+	const Rect& ballRect = ball.getRect();
+	rect.checkCollision(ballRect, top, bottom, left, right);
 	if (top)
-		ball.ReboundY(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f);
+	{
+		const float paddleRange = (rect.width + ballRect.width) / 2.0f;
+		const float relativeBallPosition = ballRect.GetCenter().x - rect.GetCenter().x;
+		const float PI = 3.1415;
+		const float angle = relativeBallPosition / paddleRange * PI / 2.2f;
+		Vec2 newDirection(sin(angle), -cos(angle));
+		ball.Redirect(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f, newDirection);
+	}
 	if (bottom)
 		ball.ReboundY(rect.upperLeft.y + rect.height);
 	if (left)

@@ -22,5 +22,4 @@ public:
 private:
 	const float speed = 300.0f;
 	Rect rect;
-		
 };
