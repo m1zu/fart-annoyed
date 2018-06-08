@@ -15,7 +15,7 @@ void Ball::Draw(Graphics & gfx)
 
 void Ball::Update(float dt)
 {
-	rect.upperLeft += velocity * dt;
+	rect.upperLeft += velocity * speed * dt;
 }
 
 void Ball::ReboundX(float repositionX)
@@ -33,4 +33,10 @@ void Ball::ReboundY(float repositionY)
 Rect Ball::getRect() const
 {
 	return rect;
+}
+
+void Ball::Redirect(const float repositionY, const Vec2 & direction)
+{
+	rect.upperLeft.y = repositionY;
+	velocity = direction.GetNormalized();
 }
