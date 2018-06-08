@@ -11,6 +11,7 @@ public:
 
 	void Draw(Graphics& gfx);
 	void Update(Ball& ball);
+	bool IsDestroyed() const;
 
 public:
 	static constexpr float width = 40.0f;

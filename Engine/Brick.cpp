@@ -34,3 +34,8 @@ void Brick::Update(Ball & ball)
 			ball.ReboundX(rect.upperLeft.x + rect.width);
 	}
 }
+
+bool Brick::IsDestroyed() const
+{
+	return isDestroyed;
+}
