@@ -48,11 +48,13 @@ private:
 	/********************************/
 	/*  User Variables              */
 	FrameTimer frameTimer;
+	Vec2 wallUpperLeft;
+	int wallPadding = 10;
 	Wall wall;
 	Ball ball;
 	Paddle paddle;
-	const int nRows = 4;
-	const int nColumns = 6;
+	int nRows = 4;
+	int nColumns = 6;
 	static constexpr int nBricks = 24;
 	Brick brick[nBricks];
 	/********************************/

@@ -25,10 +25,19 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	wall(Vec2(149.0f, 19.0f), 10),
+	wallUpperLeft(Vec2(149.0f, 19.0f)),
+	wall(wallUpperLeft, wallPadding),
 	ball(Vec2(399.0f-Ball::halfWidth, 299.0f), Vec2(1.0f, 1.0f).Normalize()),
 	paddle(Vec2(399.0f-Paddle::width/2.0f, 499.0f))
 {
+	int counter = 0;
+	const Vec2 offset(50.0f, 50.0f);
+	for (int i=0; i<nRows; ++i)
+		for (int j = 0; j < nColumns; ++j)
+		{
+			brick[counter] = Brick(Vec2(wallUpperLeft.x + offset.x + j * Brick::width, wallUpperLeft.y + offset.y + i * Brick::height), Colors::Cyan);
+				counter++;
+		}
 }
 
 void Game::Go()
@@ -50,7 +59,9 @@ void Game::UpdateModel()
 	wall.ClampBall(ball);
 
 	paddle.DoCollision(ball);
-	brick.Update(ball);
+	for (Brick& b : brick)
+		if (!b.IsDestroyed())
+			b.Update(ball);
 }
 
 void Game::ComposeFrame()
@@ -58,5 +69,7 @@ void Game::ComposeFrame()
 	wall.Draw(gfx);
 	ball.Draw(gfx);
 	paddle.Draw(gfx);
-	brick.Draw(gfx);
+	for (Brick& b : brick)
+		if (!b.IsDestroyed())
+			b.Draw(gfx);
 }
