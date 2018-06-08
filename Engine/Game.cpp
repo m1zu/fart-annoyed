@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	wall(Vec2(149.0f, 19.0f), 10),
-	ball(Vec2(399.0f-Ball::halfWidth, 299.0f), Vec2(300.0f, 150.0f)),
+	ball(Vec2(399.0f-Ball::halfWidth, 299.0f), Vec2(1.0f, 1.0f).Normalize()),
 	paddle(Vec2(399.0f-Paddle::width/2.0f, 499.0f))
 {
 }
