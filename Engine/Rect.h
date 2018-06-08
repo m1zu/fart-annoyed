@@ -16,8 +16,8 @@ public:
 	bool isCoating(const Rect & innerRect, bool & collision_top, bool & collision_bottom, bool & collision_left, bool & collision_right) const;
 
 public:
-	const float width;
-	const float height;
+	float width;
+	float height;
 	Vec2 upperLeft;
 	Color c;
 };
