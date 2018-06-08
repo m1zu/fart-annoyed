@@ -27,13 +27,14 @@
 #include "Wall.h"
 #include "Ball.h"
 #include "Paddle.h"
+#include "Brick.h"
 
 class Game
 {
 public:
-	Game( class MainWindow& wnd );
-	Game( const Game& ) = delete;
-	Game& operator=( const Game& ) = delete;
+	Game(class MainWindow& wnd);
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
 	void Go();
 private:
 	void ComposeFrame();
@@ -42,7 +43,7 @@ private:
 	/*  User Functions              */
 	/********************************/
 private:
-	MainWindow& wnd;
+	MainWindow & wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
@@ -50,5 +51,9 @@ private:
 	Wall wall;
 	Ball ball;
 	Paddle paddle;
+	const int nRows = 4;
+	const int nColumns = 6;
+	static constexpr int nBricks = 24;
+	Brick brick[nBricks];
 	/********************************/
 };

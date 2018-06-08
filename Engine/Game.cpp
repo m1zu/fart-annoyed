@@ -50,6 +50,7 @@ void Game::UpdateModel()
 	wall.ClampBall(ball);
 
 	paddle.DoCollision(ball);
+	brick.Update(ball);
 }
 
 void Game::ComposeFrame()
@@ -57,4 +58,5 @@ void Game::ComposeFrame()
 	wall.Draw(gfx);
 	ball.Draw(gfx);
 	paddle.Draw(gfx);
+	brick.Draw(gfx);
 }
