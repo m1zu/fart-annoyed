@@ -28,8 +28,12 @@ Game::Game( MainWindow& wnd )
 	wallUpperLeft(Vec2(149.0f, 19.0f)),
 	wall(wallUpperLeft, wallPadding),
 	ball(Vec2(399.0f-Ball::halfWidth, 299.0f), Vec2(1.0f, 1.0f).Normalize()),
-	paddle(Vec2(399.0f-Paddle::width/2.0f, 499.0f))
+	paddle(Vec2(399.0f-Paddle::width/2.0f, 499.0f)),
+	s_bounce(L"Sounds\\arkpad.wav"),
+	s_brick(L"Sounds\\arkbrick.wav")
 {
+	SoundSystem::SetMasterVolume(0.2f);
+
 	int counter = 0;
 	const Vec2 offset(50.0f, 50.0f);
 	for (int i=0; i<nRows; ++i)
@@ -56,12 +60,16 @@ void Game::UpdateModel()
 	wall.ClampPaddle(paddle);
 
 	ball.Update(dt);
-	wall.ClampBall(ball);
+	if (wall.ClampBall(ball))
+		s_bounce.Play();
 
-	paddle.DoCollision(ball);
+	if (paddle.DoCollision(ball))
+		s_bounce.Play();
+
 	for (Brick& b : brick)
 		if (!b.IsDestroyed())
-			b.Update(ball);
+			if (b.Update(ball))
+				s_brick.Play();
 }
 
 void Game::ComposeFrame()

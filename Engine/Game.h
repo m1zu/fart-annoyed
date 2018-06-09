@@ -28,6 +28,7 @@
 #include "Ball.h"
 #include "Paddle.h"
 #include "Brick.h"
+#include "Sound.h"
 
 class Game
 {
@@ -57,5 +58,7 @@ private:
 	int nColumns = 6;
 	static constexpr int nBricks = 24;
 	Brick brick[nBricks];
+	Sound s_bounce;
+	Sound s_brick;
 	/********************************/
 };
