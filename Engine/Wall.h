@@ -10,7 +10,7 @@ public:
 	Wall(const Vec2& in_innerTopLeft, const int in_thickness);
 
 	void Draw(Graphics& gfx) const;
-	void ClampBall(Ball& ball) const;
+	bool ClampBall(Ball& ball) const;
 	void ClampPaddle(Paddle& paddle) const;
 
 private:

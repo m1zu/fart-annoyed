@@ -13,7 +13,7 @@ public:
 	void Update(bool left, bool right, float dt);
 	Rect GetRect();
 	void ClampX(const float x);
-	void DoCollision(Ball& ball);
+	bool DoCollision(Ball& ball);
 
 public:
 	static constexpr float width = 70.0f;

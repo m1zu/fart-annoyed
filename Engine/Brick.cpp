@@ -16,7 +16,7 @@ void Brick::Draw(Graphics & gfx)
 		rect.Draw(gfx, 1);
 }
 
-void Brick::Update(Ball & ball)
+bool Brick::Update(Ball & ball)
 {
 	assert(initialized);
 	if (!isDestroyed)
@@ -32,7 +32,9 @@ void Brick::Update(Ball & ball)
 			ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
 		if (right)
 			ball.ReboundX(rect.upperLeft.x + rect.width);
+		return isDestroyed;
 	}
+	return false;
 }
 
 bool Brick::IsDestroyed() const

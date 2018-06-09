@@ -17,7 +17,7 @@ void Wall::Draw(Graphics & gfx) const
 		gfx.DrawFrameRect(innerTopLeft, thickness, Colors::Gray);
 }
 
-void Wall::ClampBall(Ball & ball) const
+bool Wall::ClampBall(Ball & ball) const
 {
 	const Rect& ballRect = ball.getRect();
 	bool left, right, top, bottom;
@@ -32,7 +32,10 @@ void Wall::ClampBall(Ball & ball) const
 			ball.ReboundY(innerTopLeft.y);
 		else if (bottom)
 			ball.ReboundY(float(Graphics::ScreenHeight) - innerTopLeft.y - ballRect.height);
+
+		return true;
 	}
+	else return false;
 }
 
 void Wall::ClampPaddle(Paddle & paddle) const

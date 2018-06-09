@@ -30,24 +30,28 @@ void Paddle::ClampX(const float x)
 	rect.upperLeft.x = x;
 }
 
-void Paddle::DoCollision(Ball & ball)
+bool Paddle::DoCollision(Ball & ball)
 {
 	bool top, bottom, left, right;
 	const Rect& ballRect = ball.getRect();
-	rect.checkCollision(ballRect, top, bottom, left, right);
-	if (top)
+	bool collision;
+	if (collision = rect.checkCollision(ballRect, top, bottom, left, right))
 	{
-		const float paddleRange = (rect.width + ballRect.width) / 2.0f;
-		const float relativeBallPosition = ballRect.GetCenter().x - rect.GetCenter().x;
-		const float PI = 3.1415;
-		const float angle = relativeBallPosition / paddleRange * PI / 2.2f;
-		Vec2 newDirection(sin(angle), -cos(angle));
-		ball.Redirect(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f, newDirection);
+		if (top)
+		{
+			const float paddleRange = (rect.width + ballRect.width) / 2.0f;
+			const float relativeBallPosition = ballRect.GetCenter().x - rect.GetCenter().x;
+			const float PI = 3.1415;
+			const float angle = relativeBallPosition / paddleRange * PI / 2.2f;
+			Vec2 newDirection(sin(angle), -cos(angle));
+			ball.Redirect(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f, newDirection);
+		}
+		if (bottom)
+			ball.ReboundY(rect.upperLeft.y + rect.height);
+		if (left)
+			ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
+		if (right)
+			ball.ReboundX(rect.upperLeft.x + rect.width);
 	}
-	if (bottom)
-		ball.ReboundY(rect.upperLeft.y + rect.height);
-	if (left)
-		ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
-	if (right)
-		ball.ReboundX(rect.upperLeft.x + rect.width);
+	return collision;
 }

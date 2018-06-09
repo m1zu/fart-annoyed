@@ -10,7 +10,7 @@ public:
 	Brick(const Vec2& upperLeft, Color c);
 
 	void Draw(Graphics& gfx);
-	void Update(Ball& ball);
+	bool Update(Ball& ball);
 	bool IsDestroyed() const;
 
 public:
