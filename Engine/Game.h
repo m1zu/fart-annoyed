@@ -54,10 +54,9 @@ private:
 	Wall wall;
 	Ball ball;
 	Paddle paddle;
-	int nRows = 4;
-	int nColumns = 6;
-	static constexpr int nBricks = 24;
-	Brick brick[nBricks];
+	static constexpr int nRows = 7;
+	static constexpr int nColumns = 11;
+	Brick brick[nRows* nColumns];
 	Sound s_bounce;
 	Sound s_brick;
 	/********************************/

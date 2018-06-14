@@ -33,13 +33,13 @@ Game::Game( MainWindow& wnd )
 	s_brick(L"Sounds\\arkbrick.wav")
 {
 	SoundSystem::SetMasterVolume(0.2f);
-
+	Color colorString[nRows] = { Colors::Blue, Colors::Cyan, Colors::Green, Colors::Magenta, Colors::Red, Colors::White, Colors::Yellow };
 	int counter = 0;
-	const Vec2 offset(50.0f, 50.0f);
+	const Vec2 offset(30.0f, 50.0f);
 	for (int i=0; i<nRows; ++i)
 		for (int j = 0; j < nColumns; ++j)
 		{
-			brick[counter] = Brick(Vec2(wallUpperLeft.x + offset.x + j * Brick::width, wallUpperLeft.y + offset.y + i * Brick::height), Colors::Cyan);
+			brick[counter] = Brick(Vec2(wallUpperLeft.x + offset.x + j * Brick::width, wallUpperLeft.y + offset.y + i * Brick::height), colorString[i]);
 				counter++;
 		}
 }
@@ -63,7 +63,7 @@ void Game::UpdateModel()
 	if (wall.ClampBall(ball))
 		s_bounce.Play();
 
-	if (paddle.DoCollision(ball))
+	if (paddle.DoBallCollision(ball))
 		s_bounce.Play();
 
 	for (Brick& b : brick)
