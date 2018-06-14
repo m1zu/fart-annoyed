@@ -40,3 +40,23 @@ void Ball::Redirect(const float repositionY, const Vec2 & direction)
 	rect.upperLeft.y = repositionY;
 	velocity = direction.GetNormalized();
 }
+
+void Ball::ResetCooldown()
+{
+	cooldown = false;
+}
+
+void Ball::ActivateCooldown()
+{
+	cooldown = true;
+}
+
+bool Ball::Cooldown() const
+{
+	return cooldown;
+}
+
+Vec2 Ball::GetVelocity() const
+{
+	return velocity;
+}

@@ -13,12 +13,17 @@ public:
 	void ReboundY(float repositionY);
 	Rect getRect() const;
 	void Redirect(const float repositionY, const Vec2& direction);
+	void ResetCooldown();
+	void ActivateCooldown();
+	bool Cooldown() const;
+	Vec2 GetVelocity() const;
 
 public:
 	static constexpr float halfWidth = 7.0f;
 
 private:
 	Rect rect;
-	const float speed = 300.0f;
+	const float speed = 150.0f;
 	Vec2 velocity;
+	bool cooldown = false;
 };
