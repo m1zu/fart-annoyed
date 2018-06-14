@@ -53,35 +53,76 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 	const float top = upperLeft.y;
 	const float bottom = upperLeft.y + height - 1.0f;
 
-	if (bool collision = in_bottom > top
+	if (in_bottom > top
 		&& in_top < bottom
 		&& in_right > left
 		&& in_left < right)
 	{
 		Vec2 in_center = in_rect.GetCenter();
 		Vec2 center = GetCenter();
-
+		 
+		// centered collisions
 		if (in_center.x > left && in_center.x < right) {
 			if (in_center.y < center.y) {
 				collision_top = true;
-				return collision;
+				return true;
 			}
 			else {
 				collision_bottom = true;
-				return collision;
+				return true;
 			}
 		}
 		if (in_center.y > top && in_center.y < bottom) {
 			if (in_center.x < center.x) {
 				collision_left = true;
-				return collision;
+				return true;
 			}
 			else {
 				collision_right = true;
-				return collision;
+				return true;
 			}
 
 		}
+		//edge collisions
+		const Vec2 normDistVec = (in_center - center).GetNormalized();
+		const float y = normDistVec.y;
+		const float x = normDistVec.x;
+		if (y < 0 && x < 0)
+			if (std::abs(y) < std::abs(x)) {
+				collision_left = true;
+				return true;
+			}
+			else {
+				collision_top = true;
+				return true;
+			}
+		if (y < 0 && x > 0)
+			if (std::abs(y) < std::abs(x)) {
+				collision_right = true;
+				return true;
+			}
+			else {
+				collision_top = true;
+				return true;
+			}
+		if (y > 0 && x < 0)
+			if (std::abs(y) < std::abs(x)) {
+				collision_left = true;
+				return true;
+			}
+			else {
+				collision_bottom = true;
+				return true;
+			}
+		if (y > 0 && x > 0)
+			if (std::abs(y) < std::abs(x)) {
+				collision_right = true;
+				return true;
+			}
+			else {
+				collision_bottom = true;
+				return true;
+			}
 	}
 
 	return false;
