@@ -33,6 +33,7 @@ bool Wall::ClampBall(Ball & ball) const
 		else if (bottom)
 			ball.ReboundY(float(Graphics::ScreenHeight) - innerTopLeft.y - ballRect.height);
 
+		ball.ResetCooldown();
 		return true;
 	}
 	else return false;

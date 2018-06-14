@@ -23,15 +23,18 @@ bool Brick::Update(Ball & ball)
 	{
 		bool top, bottom, left, right;
 		const Rect& ballRect = ball.getRect();
-		isDestroyed = rect.checkCollision(ballRect, top, bottom, left, right);
-		if (top)
-			ball.ReboundY(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f);
-		if (bottom)
-			ball.ReboundY(rect.upperLeft.y + rect.height);
-		if (left)
-			ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
-		if (right)
-			ball.ReboundX(rect.upperLeft.x + rect.width);
+		if (isDestroyed = rect.checkCollision(ballRect, top, bottom, left, right))
+		{
+			if (top)
+				ball.ReboundY(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f);
+			if (bottom)
+				ball.ReboundY(rect.upperLeft.y + rect.height);
+			if (left)
+				ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
+			if (right)
+				ball.ReboundX(rect.upperLeft.x + rect.width);
+			ball.ResetCooldown();
+		}
 		return isDestroyed;
 	}
 	return false;

@@ -13,13 +13,13 @@ public:
 	void Update(bool left, bool right, float dt);
 	Rect GetRect();
 	void ClampX(const float x);
-	bool DoCollision(Ball& ball);
+	bool DoBallCollision(Ball& ball);
 
 public:
 	static constexpr float width = 70.0f;
 	static constexpr float height = 10.0f;
 
 private:
-	const float speed = 300.0f;
+	float speed = 450.0f;
 	Rect rect;
 };
