@@ -20,6 +20,6 @@ public:
 	static constexpr float height = 10.0f;
 
 private:
-	float speed = 450.0f;
+	float speed = 350.0f;
 	Rect rect;
 };

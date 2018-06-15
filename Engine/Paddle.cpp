@@ -39,7 +39,9 @@ bool Paddle::DoBallCollision(Ball & ball)
 		bool collision;
 		if (collision = rect.checkCollision(ballRect, top, bottom, left, right))
 		{
-			if (top)
+			const float ballvx = ball.GetVelocity().x;
+			const float ballvy = ball.GetVelocity().y;
+			if (top && ballvy > 0)
 			{
 				const float paddleRange = (rect.width + ballRect.width) / 2.0f;
 				const float relativeBallPosition = ballRect.GetCenter().x - rect.GetCenter().x;
@@ -48,11 +50,11 @@ bool Paddle::DoBallCollision(Ball & ball)
 				Vec2 newDirection(sin(angle), -cos(angle));
 				ball.Redirect(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f, newDirection);
 			}
-			if (bottom)
+			if (bottom && ballvy < 0)
 				ball.ReboundY(rect.upperLeft.y + rect.height);
-			if (left && ball.GetVelocity().x > 0)
+			if (left && ballvx > 0)
 				ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
-			if (right && ball.GetVelocity().x < 0)
+			if (right && ballvx < 0)
 				ball.ReboundX(rect.upperLeft.x + rect.width);
 			ball.ActivateCooldown();
 		}
