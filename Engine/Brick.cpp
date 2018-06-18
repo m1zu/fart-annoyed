@@ -16,31 +16,43 @@ void Brick::Draw(Graphics & gfx)
 		rect.Draw(gfx, 1);
 }
 
-bool Brick::Update(Ball & ball)
+bool Brick::CheckBallCollision(const Ball & ball) const
 {
 	assert(initialized);
 	if (!isDestroyed)
 	{
-		bool top, bottom, left, right;
-		const Rect& ballRect = ball.getRect();
-		if (isDestroyed = rect.checkCollision(ballRect, top, bottom, left, right))
-		{
-			if (top)
-				ball.ReboundY(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f);
-			if (bottom)
-				ball.ReboundY(rect.upperLeft.y + rect.height);
-			if (left)
-				ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
-			if (right)
-				ball.ReboundX(rect.upperLeft.x + rect.width);
-			ball.ResetCooldown();
-		}
-		return isDestroyed;
+		bool temp;
+		return rect.checkCollision(ball.getRect(), temp, temp, temp, temp);
 	}
-	return false;
+	else return false;
+}
+
+void Brick::ExecuteBallCollision(Ball & ball)
+{
+	assert(initialized);
+	assert(!isDestroyed);
+	bool top, bottom, left, right;
+	const Rect& ballRect = ball.getRect();
+	if (isDestroyed = rect.checkCollision(ballRect, top, bottom, left, right))
+	{
+		if (top)
+			ball.ReboundY(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f);
+		if (bottom)
+			ball.ReboundY(rect.upperLeft.y + rect.height);
+		if (left)
+			ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
+		if (right)
+			ball.ReboundX(rect.upperLeft.x + rect.width);
+		ball.ResetCooldown();
+	}
 }
 
 bool Brick::IsDestroyed() const
 {
 	return isDestroyed;
+}
+
+Vec2 Brick::GetCenter() const
+{
+	return rect.GetCenter();
 }

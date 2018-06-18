@@ -10,8 +10,10 @@ public:
 	Brick(const Vec2& upperLeft, Color c);
 
 	void Draw(Graphics& gfx);
-	bool Update(Ball& ball);
+	bool CheckBallCollision(const Ball& ball) const;
+	void ExecuteBallCollision(Ball& ball);
 	bool IsDestroyed() const;
+	Vec2 GetCenter() const;
 
 public:
 	static constexpr float width = 40.0f;

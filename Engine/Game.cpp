@@ -46,16 +46,20 @@ Game::Game( MainWindow& wnd )
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
-	UpdateModel();
+	gfx.BeginFrame();
+
+	float elapsedTime = frameTimer.Mark();
+	while (elapsedTime > 0) {
+		const float dt = std::min(0.0025f, elapsedTime);
+		UpdateModel(dt);
+		elapsedTime -= 0.0025f;
+	}
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(const float dt)
 {
-	const float dt = frameTimer.Mark();
-
 	paddle.Update(wnd.kbd.KeyIsPressed(VK_LEFT), wnd.kbd.KeyIsPressed(VK_RIGHT), dt);
 	wall.ClampPaddle(paddle);
 
@@ -66,10 +70,36 @@ void Game::UpdateModel()
 	if (paddle.DoBallCollision(ball))
 		s_bounce.Play();
 
-	for (Brick& b : brick)
-		if (!b.IsDestroyed())
-			if (b.Update(ball))
-				s_brick.Play();
+	bool collisionHappened = false;
+	int currentCollisionIndex;
+	float currentCollisionDistanceSq;
+	int counter = 0;
+	for (int i = 0; i<nRows; ++i)
+		for (int j = 0; j < nColumns; ++j)
+		{
+			if (!brick[counter].IsDestroyed())
+				if (brick[counter].CheckBallCollision(ball))
+					if (collisionHappened)
+					{
+						float newCollisionDistanceSq = (brick[counter].GetCenter() - ball.getRect().GetCenter()).GetLengthSq();
+						if (newCollisionDistanceSq < currentCollisionDistanceSq)
+						{
+							currentCollisionDistanceSq = newCollisionDistanceSq;
+							currentCollisionIndex = counter;
+						}
+					}
+					else
+					{
+						collisionHappened = true;
+						currentCollisionDistanceSq = (brick[counter].GetCenter() - ball.getRect().GetCenter()).GetLengthSq();
+						currentCollisionIndex = counter;
+					}
+			counter++;
+		}
+	if (collisionHappened) {
+		brick[currentCollisionIndex].ExecuteBallCollision(ball);
+		s_brick.Play();
+	}
 }
 
 void Game::ComposeFrame()
