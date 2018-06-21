@@ -27,9 +27,10 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	wallUpperLeft(Vec2(149.0f, 19.0f)),
 	wall(wallUpperLeft, wallPadding),
-	ball(Vec2(399.0f - Ball::halfWidth, 299.0f), Vec2(0.0f, 1.0f).Normalize()),
+	ball(Vec2(399.0f - Ball::halfWidth, 299.0f), Vec2(-.5f, -1.0f).Normalize()),
 	paddle(Vec2(399.0f - Paddle::width / 2.0f, 499.0f)),
 	lifebar(3, Vec2(120.0f, Graphics::ScreenHeight - 20.0f)),
+	testBrick(Vec2(389.0f - Ball::halfWidth, 250.0f), Colors::White),
 	s_bounce(L"Sounds\\arkpad.wav"),
 	s_brick(L"Sounds\\arkbrick.wav")
 {
@@ -76,6 +77,8 @@ void Game::UpdateModel(const float dt)
 		int currentCollisionIndex;
 		float currentCollisionDistanceSq;
 		int counter = 0;
+		if (testBrick.CheckBallCollision(ball))
+			testBrick.ExecuteBallCollision(ball);
 		for (int i = 0; i < nRows; ++i)
 			for (int j = 0; j < nColumns; ++j)
 			{
@@ -110,6 +113,7 @@ void Game::UpdateModel(const float dt)
 void Game::ComposeFrame()
 {
 	wall.Draw(gfx);
+	testBrick.Draw(gfx);
 	ball.Draw(gfx);
 	paddle.Draw(gfx);
 	for (Brick& b : brick)
