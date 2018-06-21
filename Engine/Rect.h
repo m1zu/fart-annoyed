@@ -13,7 +13,9 @@ public:
 	void Draw(Graphics& gfx, int padding = 0);
 	Vec2 GetCenter() const;
 	bool checkCollision(const Rect& in_rect, bool & collision_top, bool & collision_bottom, bool & collision_left, bool & collision_right) const;
+	bool checkCollision(const Rect& in_rect) const;
 	bool isCoating(const Rect & innerRect, bool & collision_top, bool & collision_bottom, bool & collision_left, bool & collision_right) const;
+	bool isCoating(const Rect & innerRect) const;
 
 public:
 	float width;

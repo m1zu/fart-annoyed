@@ -145,6 +145,12 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 	return false;
 }
 
+bool Rect::checkCollision(const Rect & in_rect) const
+{
+	bool temp;
+	return checkCollision(in_rect, temp, temp, temp, temp);
+}
+
 bool Rect::isCoating(const Rect & innerRect, bool & collision_top, bool & collision_bottom, bool & collision_left, bool & collision_right) const
 {
 	collision_top = false;
@@ -167,4 +173,10 @@ bool Rect::isCoating(const Rect & innerRect, bool & collision_top, bool & collis
 		collision_bottom = true;
 
 		return !(collision_top || collision_bottom || collision_left || collision_right);
+}
+
+bool Rect::isCoating(const Rect & innerRect) const
+{
+	bool temp;
+	return isCoating(innerRect, temp, temp, temp, temp);
 }
