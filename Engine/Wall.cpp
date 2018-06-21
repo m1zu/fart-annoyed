@@ -5,7 +5,7 @@
 Wall::Wall(const Vec2& in_innerTopLeft, const int in_thickness) 
 	:
 	innerTopLeft(in_innerTopLeft),
-	innerRect(in_innerTopLeft, float(Graphics::ScreenWidth) - in_innerTopLeft.x, float(Graphics::ScreenHeight) - in_innerTopLeft.y, Colors::Yellow),
+	innerRect(in_innerTopLeft, float(Graphics::ScreenWidth) - 2.0f*in_innerTopLeft.x, float(Graphics::ScreenHeight) - 2.0f*in_innerTopLeft.y, Colors::Yellow),
 	thickness(in_thickness)
 {
 }
