@@ -29,6 +29,7 @@
 #include "Paddle.h"
 #include "Brick.h"
 #include "Sound.h"
+#include "Lifebar.h"
 
 class Game
 {
@@ -54,10 +55,14 @@ private:
 	Wall wall;
 	Ball ball;
 	Paddle paddle;
+	Lifebar lifebar;
 	static constexpr int nRows = 7;
 	static constexpr int nColumns = 11;
 	Brick brick[nRows* nColumns];
 	Sound s_bounce;
 	Sound s_brick;
+
+	bool gameIsStarted = false;
+	bool gameOver = false;
 	/********************************/
 };
