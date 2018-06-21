@@ -145,6 +145,7 @@
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Lifebar.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Keyboard.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Lifebar.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Keyboard.cpp" />

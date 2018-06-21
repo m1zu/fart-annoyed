@@ -60,7 +60,7 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 	{
 		Vec2 in_center = in_rect.GetCenter();
 		Vec2 center = GetCenter();
-		 
+
 		// centered collisions
 		if (in_center.x > left && in_center.x < right) {
 			if (in_center.y < center.y) {
@@ -84,11 +84,15 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 
 		}
 		//edge collisions
-		const Vec2 normDistVec = (in_center - center).GetNormalized();
-		const float y = normDistVec.y;
-		const float x = normDistVec.x;
+		const Vec2 normCenterVec = (in_center - center).GetNormalized();
+		const Vec2 in_upperleft = in_rect.upperLeft;
+		const float y = normCenterVec.y;
+		const float x = normCenterVec.x;
 		if (y < 0 && x < 0)
-			if (std::abs(y) < std::abs(x)) {
+		{
+			Vec2 normCornerVec(in_upperleft.x - upperLeft.x, in_upperleft.y - upperLeft.y);
+			normCornerVec.Normalize();
+			if (std::abs(normCornerVec.y) < std::abs(normCornerVec.x)) {
 				collision_left = true;
 				return true;
 			}
@@ -96,8 +100,12 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 				collision_top = true;
 				return true;
 			}
+		}
 		if (y < 0 && x > 0)
-			if (std::abs(y) < std::abs(x)) {
+		{
+			Vec2 normCornerVec(in_upperleft.x - (upperLeft.x + width -1.0f), in_upperleft.y - upperLeft.y);
+			normCornerVec.Normalize();
+			if (std::abs(normCornerVec.y) < std::abs(normCornerVec.x)) {
 				collision_right = true;
 				return true;
 			}
@@ -105,8 +113,12 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 				collision_top = true;
 				return true;
 			}
+		}
 		if (y > 0 && x < 0)
-			if (std::abs(y) < std::abs(x)) {
+		{
+			Vec2 normCornerVec(in_upperleft.x - upperLeft.x, in_upperleft.y - (upperLeft.y + height - 1.0f));
+			normCornerVec.Normalize();
+			if (std::abs(normCornerVec.y) < std::abs(normCornerVec.x)) {
 				collision_left = true;
 				return true;
 			}
@@ -114,8 +126,12 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 				collision_bottom = true;
 				return true;
 			}
+		}
 		if (y > 0 && x > 0)
-			if (std::abs(y) < std::abs(x)) {
+		{
+			Vec2 normCornerVec(in_upperleft.x - (upperLeft.x + width - 1.0f), in_upperleft.y - (upperLeft.y + height - 1.0f));
+			normCornerVec.Normalize();
+			if (std::abs(normCornerVec.y) < std::abs(normCornerVec.x)) {
 				collision_right = true;
 				return true;
 			}
@@ -123,6 +139,7 @@ bool Rect::checkCollision(const Rect & in_rect, bool & collision_top, bool & col
 				collision_bottom = true;
 				return true;
 			}
+		}
 	}
 
 	return false;
