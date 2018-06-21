@@ -55,10 +55,10 @@ private:
 	Wall wall;
 	Ball ball;
 	Paddle paddle;
-	Lifebar lifebar;
 	static constexpr int nRows = 7;
 	static constexpr int nColumns = 11;
 	Brick brick[nRows* nColumns];
+	Lifebar lifebar;
 	Sound s_bounce;
 	Sound s_brick;
 

@@ -29,7 +29,7 @@ Game::Game(MainWindow& wnd)
 	wall(wallUpperLeft, wallPadding),
 	ball(Vec2(399.0f - Ball::halfWidth, 299.0f), Vec2(0.0f, 1.0f).Normalize()),
 	paddle(Vec2(399.0f - Paddle::width / 2.0f, 499.0f)),
-	lifebar(3, Vec2(120.0f, Graphics::ScreenHeight - 20.0f)),
+	lifebar(3, Vec2(120.0f, Graphics::ScreenHeight - 20.0f), wallUpperLeft),
 	s_bounce(L"Sounds\\arkpad.wav"),
 	s_brick(L"Sounds\\arkbrick.wav")
 {
@@ -62,16 +62,20 @@ void Game::Go()
 void Game::UpdateModel(const float dt)
 {
 	if (gameIsStarted && !gameOver) {
+		//// Paddle Update ////
 		paddle.Update(wnd.kbd.KeyIsPressed(VK_LEFT), wnd.kbd.KeyIsPressed(VK_RIGHT), dt);
 		wall.ClampPaddle(paddle);
 
+		//// Ball Update ///
 		ball.Update(dt);
 		if (wall.ClampBall(ball))
 			s_bounce.Play();
 
+		//// Paddle Collision ///
 		if (paddle.DoBallCollision(ball))
 			s_bounce.Play();
 
+		//// Brick Collision ////
 		bool collisionHappened = false;
 		int currentCollisionIndex;
 		float currentCollisionDistanceSq;
@@ -102,6 +106,16 @@ void Game::UpdateModel(const float dt)
 			brick[currentCollisionIndex].ExecuteBallCollision(ball);
 			s_brick.Play();
 		}
+		//// Loose/Fail Check ////
+		if (lifebar.updateBallDeath(ball))
+		{
+			ball.Reset();
+			paddle.Reset();
+			gameIsStarted = false;
+			if (lifebar.GetLifes() <= 0)
+				gameOver = true;
+		}
+
 	}
 	else if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		gameIsStarted = true;
