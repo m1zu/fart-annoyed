@@ -17,13 +17,16 @@ public:
 	void ActivateCooldown();
 	bool Cooldown() const;
 	Vec2 GetVelocity() const;
+	void Reset();
 
 public:
 	static constexpr float halfWidth = 7.0f;
 
 private:
 	Rect rect;
+	Rect inital_rect;
 	const float speed = 350.0f;
 	Vec2 velocity;
+	Vec2 intial_velocity;
 	bool cooldown = false;
 };

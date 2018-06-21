@@ -14,6 +14,7 @@ public:
 	Rect GetRect();
 	void ClampX(const float x);
 	bool DoBallCollision(Ball& ball);
+	void Reset();
 
 public:
 	static constexpr float width = 70.0f;
@@ -22,4 +23,5 @@ public:
 private:
 	float speed = 350.0f;
 	Rect rect;
+	Rect initial_rect;
 };

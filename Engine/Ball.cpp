@@ -4,7 +4,9 @@
 Ball::Ball(const Vec2 & center, const Vec2 & in_vel)
 	:
 	rect(center, halfWidth, Colors::Gray),
-	velocity(in_vel)
+	inital_rect(rect),
+	velocity(in_vel),
+	intial_velocity(velocity)
 {
 }
 
@@ -59,4 +61,10 @@ bool Ball::Cooldown() const
 Vec2 Ball::GetVelocity() const
 {
 	return velocity;
+}
+
+void Ball::Reset()
+{
+	velocity = intial_velocity;
+	rect = inital_rect;
 }

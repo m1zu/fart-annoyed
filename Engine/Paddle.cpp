@@ -3,7 +3,8 @@
 
 Paddle::Paddle(const Vec2 & upperLeft)
 	:
-	rect(upperLeft, width, height, Colors::Blue)
+	rect(upperLeft, width, height, Colors::Blue),
+	initial_rect(rect)
 {
 }
 
@@ -61,4 +62,9 @@ bool Paddle::DoBallCollision(Ball & ball)
 		return collision;
 	}
 	else return false;
+}
+
+void Paddle::Reset()
+{
+	rect = initial_rect;
 }
