@@ -33,15 +33,17 @@ void Brick::ExecuteBallCollision(Ball & ball)
 	assert(!isDestroyed);
 	bool top, bottom, left, right;
 	const Rect& ballRect = ball.getRect();
+	const float vx = ball.GetVelocity().x;
+	const float vy = ball.GetVelocity().y;
 	if (isDestroyed = rect.checkCollision(ballRect, top, bottom, left, right))
 	{
-		if (top)
+		if (top && vy>0)
 			ball.ReboundY(rect.upperLeft.y - 1.0f - ball.halfWidth * 2.0f);
-		if (bottom)
+		if (bottom && vy<0)
 			ball.ReboundY(rect.upperLeft.y + rect.height);
-		if (left)
+		if (left && vx>0)
 			ball.ReboundX(rect.upperLeft.x - 1.0f - ball.halfWidth * 2.0f);
-		if (right)
+		if (right && vx<0)
 			ball.ReboundX(rect.upperLeft.x + rect.width);
 		ball.ResetCooldown();
 	}
