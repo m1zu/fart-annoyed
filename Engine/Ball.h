@@ -23,7 +23,7 @@ public:
 
 private:
 	Rect rect;
-	const float speed = 20.0f;
+	const float speed = 350.0f;
 	Vec2 velocity;
 	bool cooldown = false;
 };

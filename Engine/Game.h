@@ -59,7 +59,6 @@ private:
 	static constexpr int nRows = 7;
 	static constexpr int nColumns = 11;
 	Brick brick[nRows* nColumns];
-	Brick testBrick;
 	Sound s_bounce;
 	Sound s_brick;
 
